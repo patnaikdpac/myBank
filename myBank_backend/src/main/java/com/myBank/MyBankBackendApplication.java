@@ -9,6 +9,7 @@ public class MyBankBackendApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MyBankBackendApplication.class, args);
 		System.out.println("This is a Mini Banking Application");
+		System.out.println("Hello Project");
 		
 	}
 
