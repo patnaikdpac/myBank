@@ -1,7 +1,15 @@
-package com.myBank.Entity;
+package com.myBank.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,18 +23,19 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="Registration")
-public class RegistrationEntity implements Serializable {
+@Table(name="user")
+public class User implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
     
 	@Id
-	@Column(name="regd_id")
+	@Column(name="user_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	@Column(name="first_name",length=20)
 	private String firstName;
+	
 	@Column(name="last_name",length=20)
 	private String lastName;
 	
@@ -43,9 +52,26 @@ public class RegistrationEntity implements Serializable {
 	private String accountNo;
 	
 	@Column(name="account_type",length=10)
-	private String accountType;
+	private String accountType;//A or U
 	
 	@Column(length=20)
 	private String password;
+	
+	@Column(name = "active_status")
+	private int status;
+	
+	@CreatedBy
+	private String creUser;
+	
+	@CreationTimestamp
+	@JsonFormat(pattern="dd/MM/yy hh:mm:ss a")
+	private LocalDateTime creDate;
+	
+	@LastModifiedBy
+	private String modUser;
+	
+	@UpdateTimestamp
+	@JsonFormat(pattern="dd/MM/yy hh:mm:ss a")
+	private LocalDateTime modDate;
 	
 }
