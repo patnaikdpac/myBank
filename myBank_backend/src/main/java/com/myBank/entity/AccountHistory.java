@@ -2,7 +2,7 @@ package com.myBank.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,13 +10,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "Account_History")
+@Table(name = "account_history")
 public class AccountHistory implements Serializable 
 {
 	private static final long serialVersionUID = 1L;
@@ -32,16 +30,14 @@ public class AccountHistory implements Serializable
 	@Column(nullable = false, precision = 12, scale = 2)
 	private BigDecimal withdrawlAmount;					//Amount of cash withdrawn
 	
-	//@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "withdrawal_date")
-	private Date withdrawalDate;						//The date on which the withdrawal happened
+	private LocalDateTime withdrawalDate;						//The date on which the withdrawal happened
 	
 	@Column(nullable = false, precision = 12, scale = 2)
 	private BigDecimal depositAmount;					//Amount of cash deposited
 	
-	//@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "deposit_date")
-	private Date depositDate;							//The date on which the deposit happened
+	private LocalDateTime depositDate;							//The date on which the deposit happened
 	
 	@Column(nullable = false, precision = 12, scale = 2)
 	private BigDecimal currentBalance;					//Running balance of the user account
