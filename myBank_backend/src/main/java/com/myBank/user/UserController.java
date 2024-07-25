@@ -5,14 +5,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.myBank.entity.User;
 
+import jakarta.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
+@Transactional
 @RequestMapping("/v1/user")
 public class UserController {
 
+	@Autowired
+	LoginService loginService;
+	
 	@PostMapping("/registration")
 	public User userRegistration(@RequestBody User user) {
 		
@@ -20,8 +28,8 @@ public class UserController {
 	}
 	
 	@PostMapping("/login")
-	public String userLogin(@RequestBody LoginUser loginUser) {
+	public ResponseEntity<Object> userLogin(@RequestBody LoginUser loginUser) {
 		
-		return null;
+		return loginService.userLogin(loginUser);
 	}
 }
