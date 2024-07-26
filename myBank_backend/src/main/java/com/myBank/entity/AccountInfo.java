@@ -1,6 +1,5 @@
 package com.myBank.entity;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -10,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -20,12 +21,13 @@ import lombok.Data;
 public class AccountInfo 
 {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	@Column(name="account_no",length=12,unique=true)
 	private String accountNo;
 	
-	private BigDecimal balance;
+	private Double balance;
 	
 	@CreationTimestamp
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss a")

@@ -8,10 +8,4 @@ import com.myBank.entity.User;
 public interface RegistrationService {
 
 	public User userRegistration(User user);
-
-	
-
-	
-	
-
 }

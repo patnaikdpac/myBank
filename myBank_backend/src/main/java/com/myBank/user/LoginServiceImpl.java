@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.myBank.accountData.AccountInfoDao;
+import com.myBank.entity.AccountInfo;
 import com.myBank.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +21,9 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     LoginRepository loginRepository;
+    
+    @Autowired
+    AccountInfoDao accountInfoDao;
 
     private static final Logger logger = LoggerFactory.getLogger(LoginServiceImpl.class);
 
@@ -29,12 +34,14 @@ public class LoginServiceImpl implements LoginService {
 
         try {
             Optional<User> user = loginRepository.userLogin(loginUser);
-
+            User newUser = user.get();
             if (user.isPresent()) {
+            	Optional<AccountInfo> byAccountNo = accountInfoDao.findByAccountNo(user.get().getAccountNo());
+            	newUser.setAccountInfo(byAccountNo.get());
                 status = HttpStatus.OK;
                 response.put("status", "OK");
                 response.put("message", "Login Successful");
-                response.put("user", user.get());
+                response.put("user", newUser);
             } else {
                 status = HttpStatus.NOT_FOUND;
                 response.put("status", "ERROR");
