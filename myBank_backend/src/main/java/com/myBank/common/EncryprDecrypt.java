@@ -13,13 +13,14 @@ public class EncryprDecrypt {
 	public static final String DESEDE_ENCRYPTION_SCHEME = "DESede";
 	private KeySpec ks;
 	private SecretKeyFactory skf;
-	private Cipher cipher;
+	private static Cipher cipher;
 	byte[] arrayBytes;
 	private String myEncryptionScheme;
-	SecretKey key;
+	static SecretKey key;
+	private String myEncryptionKey; 
 
 	public EncryprDecrypt(String myEncryptionKey) throws Exception {
-		//myEncryptionKey = "ThisIsSpartaThisIsSparta";
+		this.myEncryptionKey = myEncryptionKey;
 		myEncryptionScheme = DESEDE_ENCRYPTION_SCHEME;
 		arrayBytes = myEncryptionKey.getBytes(UNICODE_FORMAT);
 		ks = new DESedeKeySpec(arrayBytes);
@@ -28,7 +29,7 @@ public class EncryprDecrypt {
 		key = skf.generateSecret(ks);
 	}
 
-	public String encrypt(String plainData) {
+	public static String encrypt(String plainData) {
 		String encryptedString = null;
 		try {
 			cipher.init(Cipher.ENCRYPT_MODE, key);
@@ -41,7 +42,7 @@ public class EncryprDecrypt {
 		return encryptedString;
 	}
 
-	public String decrypt(String encryptedData) {
+	public static String decrypt(String encryptedData) {
 		String decryptedText = null;
 		try {
 			cipher.init(Cipher.DECRYPT_MODE, key);

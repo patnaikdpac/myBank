@@ -19,6 +19,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.persistence.Transient;
 import lombok.Data;
 
 @Data
@@ -54,7 +55,7 @@ public class User implements Serializable {
 	@Column(name="account_type",length=10)
 	private String accountType;//A or U
 	
-	@Column(length=20)
+	@Column(length=500)
 	private String password;
 	
 	@Column(name = "active_status")
@@ -74,4 +75,6 @@ public class User implements Serializable {
 	@JsonFormat(pattern="dd/MM/yy hh:mm:ss a")
 	private LocalDateTime modDate;
 	
+	@Transient
+	private AccountInfo accountInfo;
 }

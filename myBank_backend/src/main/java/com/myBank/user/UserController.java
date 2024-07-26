@@ -13,30 +13,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 @RestController
 @Transactional
 @RequestMapping("/v1/user")
 
-public class UserController 
-{
-	
+public class UserController {
+
 	@Autowired
 	RegistrationService registrationService;
-  
+
 	@Autowired
 	LoginService loginService;
-	
+
 	@PostMapping("/registration")
-	public User userRegistration(@RequestBody User user) 
-	{
-		
+	public User userRegistration(@RequestBody User user) {
+
 		return registrationService.userRegistration(user);
 	}
-	
+
 	@PostMapping("/login")
-	public ResponseEntity<Object> userLogin(@RequestBody LoginUser loginUser) 
-  {
-				return loginService.userLogin(loginUser);
+	public ResponseEntity<Object> userLogin(@RequestBody LoginUser loginUser) {
+		return loginService.userLogin(loginUser);
 	}
 }
