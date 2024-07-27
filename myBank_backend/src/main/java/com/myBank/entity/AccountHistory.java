@@ -3,6 +3,11 @@ package com.myBank.entity;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
@@ -40,4 +45,20 @@ public class AccountHistory
 	
 	@Column(name = "current_balance")
 	private BigDecimal currBal;
+	
+
+	@CreatedBy
+	private String creUser;
+	
+	@CreationTimestamp
+	@JsonFormat(pattern="dd/MM/yy hh:mm:ss a")
+	private LocalDateTime creDate;
+	
+	@LastModifiedBy
+	private String modUser;
+	
+	@UpdateTimestamp
+	@JsonFormat(pattern="dd/MM/yy hh:mm:ss a")
+	private LocalDateTime modDate;
+	
 }
