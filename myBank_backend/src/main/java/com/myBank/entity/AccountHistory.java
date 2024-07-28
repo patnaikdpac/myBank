@@ -3,6 +3,12 @@ package com.myBank.entity;
 import java.time.LocalDateTime;
 
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
+
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
@@ -47,4 +53,19 @@ public class AccountHistory
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "account_id")
 	private AccountInfo accountInfo;
+
+	@CreatedBy
+	private String creUser;
+	
+	@CreationTimestamp
+	@JsonFormat(pattern="dd/MM/yy hh:mm:ss a")
+	private LocalDateTime creDate;
+	
+	@LastModifiedBy
+	private String modUser;
+	
+	@UpdateTimestamp
+	@JsonFormat(pattern="dd/MM/yy hh:mm:ss a")
+	private LocalDateTime modDate;
+	
 }
