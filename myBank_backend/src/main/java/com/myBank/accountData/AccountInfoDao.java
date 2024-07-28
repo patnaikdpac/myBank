@@ -1,13 +1,16 @@
 package com.myBank.accountData;
 
-import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 
 import com.myBank.entity.AccountInfo;
 
-public interface AccountInfoDao extends CrudRepository<AccountInfo, Long> {
+import jakarta.transaction.Transactional;
 
-	Optional<AccountInfo> findByAccountNo(String accountNo);
+@Transactional
+public interface AccountInfoDao extends CrudRepository<AccountInfo, Long> 
+{
+
+	AccountInfo findByAccountNo(String accountNo);
 
 }

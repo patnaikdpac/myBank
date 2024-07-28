@@ -3,6 +3,7 @@ package com.myBank.entity;
 import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -18,7 +19,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
 import jakarta.persistence.JoinColumn;
+
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -79,11 +82,17 @@ public class User implements Serializable {
 	@JsonFormat(pattern = "dd/MM/yy hh:mm:ss a")
 	private LocalDateTime modDate;
 
+	
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	private AccountInfo accountInfo;
+	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id", referencedColumnName = "address_id")
 	private Address address;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_id", referencedColumnName = "account_info_id")
+	@JoinColumn(name = "user_id", referencedColumnName = "account_id")
 	private AccountInfo accountinfo;
+
 }
