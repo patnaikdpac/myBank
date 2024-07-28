@@ -17,7 +17,8 @@ public class RegistrationServiceImpl implements RegistrationService {
 	@Autowired
 	AccountInfoDao accountInfoDao;
 
-	public User userRegistration(User user) {
+	public User userRegistration(User user) 
+	{
 		// TO DO Existing mail/mobile check before save
 		EncryprDecrypt obj = null;
 		try {
@@ -33,7 +34,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 		accountInfo.setBalance(0.0);
 		accountInfo.setCreUser("SYSTEM");
 		accountInfoDao.save(accountInfo);
-		user.setAccountInfo(accountInfo);
+		//user.setAccountInfo(accountInfo);
 		return user;
 	}
 

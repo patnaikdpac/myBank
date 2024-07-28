@@ -36,7 +36,7 @@ public class LoginServiceImpl implements LoginService {
             Optional<User> user = loginRepository.userLogin(loginUser);
             User newUser = user.get();
             if (user.isPresent()) {
-            	Optional<AccountInfo> byAccountNo = accountInfoDao.findByAccountNo(user.get().getAccountNo());
+            	Optional<AccountInfo> byAccountNo = Optional.of(accountInfoDao.findByAccountNo(user.get().getAccountNo()));
             	newUser.setAccountInfo(byAccountNo.get());
                 status = HttpStatus.OK;
                 response.put("status", "OK");

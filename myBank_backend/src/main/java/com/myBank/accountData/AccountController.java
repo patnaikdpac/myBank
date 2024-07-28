@@ -1,41 +1,36 @@
 package com.myBank.accountData;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.myBank.common.InsufficientBalanceException;
+
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
 @RequestMapping("/account")
 public class AccountController 
-{
+{ 
 	@Autowired
 	AccountService accountService;
 	
 	@PostMapping("/operation")
-	public ResponseEntity<Object> performOperation(@RequestParam String accountNo, @RequestParam String opType, @RequestParam Double amount) 
+	public ResponseEntity<Object> performOperation(@RequestParam String trnsType, @RequestParam String accountNo,  @RequestParam double amount) 
 	{
-		return null;
+		try {
+			accountService.performOperation(trnsType, accountNo, amount);
+			return ResponseEntity.ok("Operation Successful !!!");
+			} 
+		catch (InsufficientBalanceException e) 
+		{
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
 		
-		/*
-		 * switch (opType) { case "withdrawal": try {
-		 * 
-		 * } catch (Exception e) { }
-		 * 
-		 * switch (opType) { case "deposit": try {
-		 * 
-		 * } catch (Exception e) { }
-		 * 
-		 * switch (opType) { case "checkbalance": try {
-		 * 
-		 * } catch (Exception e) { } default: throw new
-		 * IllegalArgumentException("Unexpected value: " + key); } return
-		 * ResponseEntity<Object> ;
-		 */
 	}
 	
 }
