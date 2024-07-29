@@ -82,17 +82,13 @@ public class User implements Serializable {
 	@JsonFormat(pattern = "dd/MM/yy hh:mm:ss a")
 	private LocalDateTime modDate;
 
-	
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-	private AccountInfo accountInfo;
-	
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id", referencedColumnName = "address_id")
 	private Address address;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_id", referencedColumnName = "account_id")
-	private AccountInfo accountinfo;
+	@JoinColumn(name = "user_id", referencedColumnName = "account_info_id")
+	private AccountInfo accountInfo;
 
 }

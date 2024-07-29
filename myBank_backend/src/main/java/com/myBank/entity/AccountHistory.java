@@ -34,8 +34,8 @@ public class AccountHistory
 	
 	
 	@JoinColumn
-	@Column(name="account_no",length=12,unique=true)
-	private AccountInfo accountNo;
+	@Column(name="account_no",length=12)
+	private String accountNo;
 	
 	@Column(name = "transaction_type", length = 12)
 	private String trnsType;
@@ -50,9 +50,6 @@ public class AccountHistory
 	@Column(name = "current_balance")
 	private double currBal;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "account_id")
-	private AccountInfo accountInfo;
 
 	@CreatedBy
 	private String creUser;

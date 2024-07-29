@@ -22,11 +22,12 @@ public class AccountRepository
 	@Autowired
 	AccountHistoryDao historyDao;
 	
-	AccountHistory history = new AccountHistory();
+	AccountHistory history = null;
 	
 	@Transactional
 	public double withdraw(String accountNo, double amount) throws InsufficientBalanceException 
 	{
+		history = new AccountHistory();
 		AccountInfo accountInfo = infoDao.findByAccountNo(accountNo);
 		
 		double remainingBal = 0.0;
@@ -42,9 +43,10 @@ public class AccountRepository
 			accountInfo.setBalance(remainingBal);
 		}
 		
-		history.setAccountInfo(accountInfo);
 		history.setTrnsType("withdraw");
 		history.setAmount(amount);
+		//TO DO Check For account Number
+		history.setAccountNo(accountNo);
 		history.setTransDate(LocalDateTime.now());
 		historyDao.save(history);
 		//historyDao.setParam(accountNo, accountNo, amount, remainingBal);
@@ -55,14 +57,16 @@ public class AccountRepository
 	@Transactional
 	public double deposit(String accountNo, double amount) 
 	{
+		history = new AccountHistory();
 		AccountInfo accountInfo = infoDao.findByAccountNo(accountNo);
 		
 		double newBal = accountInfo.getBalance()+ amount;
 		accountInfo.setBalance(newBal);
 		
-		history.setAccountInfo(accountInfo);
 		history.setTrnsType("deposit");
 		history.setAmount(amount);
+		history.setAccountNo(accountNo);
+		
 		history.setTransDate(LocalDateTime.now());
 		historyDao.save(history);
 		//historyDao.setParam(accountNo, accountNo, amount, newBal);
