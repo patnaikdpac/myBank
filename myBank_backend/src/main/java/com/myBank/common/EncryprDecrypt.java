@@ -29,7 +29,7 @@ public class EncryprDecrypt {
 		key = skf.generateSecret(ks);
 	}
 
-	public static String encrypt(String plainData) {
+	public  String encrypt(String plainData) {
 		String encryptedString = null;
 		try {
 			cipher.init(Cipher.ENCRYPT_MODE, key);
@@ -42,7 +42,7 @@ public class EncryprDecrypt {
 		return encryptedString;
 	}
 
-	public static String decrypt(String encryptedData) {
+	public  String decrypt(String encryptedData) {
 		String decryptedText = null;
 		try {
 			cipher.init(Cipher.DECRYPT_MODE, key);

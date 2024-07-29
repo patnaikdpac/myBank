@@ -36,9 +36,8 @@ public class AccountInfo implements Serializable
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "account_id")
-	private Long ac_id;
+	@Column(name = "account_info_id")
+	private Long accountInfoId;
 	
 	@Column(name="account_no",length=12,unique=true)
 	private String accountNo;
@@ -63,10 +62,4 @@ public class AccountInfo implements Serializable
 	@Column(name = "modified_date")
 	private LocalDateTime modDate;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
-	private User user;
-	
-	@OneToMany(mappedBy = "accountInfo", cascade = CascadeType.ALL)
-	private Set<AccountHistory> histories;
 }

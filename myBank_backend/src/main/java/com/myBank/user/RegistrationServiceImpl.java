@@ -27,8 +27,6 @@ public class RegistrationServiceImpl implements RegistrationService {
 	public User userRegistration(User user) 
 	{
 		// TO DO Existing mail/mobile check before save
-
-	public User userRegistration(User user) {
 		if (dao.existsByMail(user.getMail()) || dao.existsByMobile(user.getMobile())) {
 			throw new IllegalArgumentException("Email or Mobile already exists");
 		}
@@ -43,13 +41,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 		user.setPassword(obj.encrypt(user.getPassword()));
 		dao.save(user);
 
-		
-		AccountInfo accountInfo = new AccountInfo();
-		accountInfo.setAccountNo(user.getAccountNo());
-		accountInfo.setBalance(0.0);
-		accountInfo.setCreUser("SYSTEM");
-		accountInfoDao.save(accountInfo);
-		//user.setAccountInfo(accountInfo);
+
 
 		if (user != null) {
 			AccountInfo accountInfo = new AccountInfo();
